@@ -4,7 +4,9 @@ class Enemy {
     this.width = 20;
     this.height = 40;
 
-    this.x = this.board.randomPosition;
+    this.maxWidth = this.board.clientWidth - this.width * 2;
+    this.x = Math.floor(Math.random() * (this.maxWidth - this.width + 1) + this.width);
+
     this.y = this.board.clientHeight;
     this.sy = 10;
     this.sx = 5;
@@ -13,8 +15,6 @@ class Enemy {
     this.element.className = "enemy";
     this.element.style.position = "absolute";
 
-    this.maxWidth = this.board.clientWidth - this.width * 2;
-    this.randomPosition = Math.floor(Math.random() * (this.maxWidth - this.width + 1) + this.width);
     
     
   }
@@ -25,7 +25,7 @@ class Enemy {
     this.element.style.backgroundColor = "red";
     
    
-    this.element.style.left = this.randomPosition + "px";
+    this.element.style.left = this.x + "px";
 
     
 

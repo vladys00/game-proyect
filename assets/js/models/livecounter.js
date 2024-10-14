@@ -29,10 +29,19 @@ class LiveCounter {
     Array(this.lives)
       .fill("x")
       .forEach((_, index) => {
-        this.element.style.left = `${(this.offSetHeart + index * (this.width + this.spacingHeart))}px`
+        this.element.style.left = `${this.offSetHeart + index * (this.width + this.spacingHeart) }px`;
         this.element.style.top = "30px";
 
         document.body.appendChild(this.element.cloneNode());
       });
+      console.log(Array(this.lives))
+  }
+  collideWith(entity) {
+    return (
+      this.x < entity.x + entity.width &&
+      this.x + this.width > entity.x &&
+      this.y < entity.y + entity.height &&
+      this.height + this.y > entity.y
+    );
   }
 }

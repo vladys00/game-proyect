@@ -14,6 +14,7 @@ class Game {
     setInterval(() => {
       this.draw();
       this.move();
+      this.checkCollision();
       this.tick++;
 
       if (this.tick % this.enemytick === 0) {
@@ -42,23 +43,25 @@ class Game {
     });
   }
 
-  checkCollisions() {
+  checkCollision() {
     const enemy = this.enemies.find((enemy) => {
       return this.player.collideWith(enemy);
     });
-
+    console.log(enemy);
     if (enemy) {
-      this.enemies = this.enemies.filter(
-        (enemyFromArr) => enemyFromArr !== enemy
-      );
-      enemy.element.remove();
+        console.log(this.enemies)
+        this.enemies = this.enemies.filter((passedEnemy) => {
+            return passedEnemy !== enemy;
+        });
+        
+    enemy.element.remove();
       this.player.lives -= 1;
       this.liveCounter.lives = this.player.lives;
       this.liveCounter.draw();
 
       if (this.player.lives === 0) {
-        window.clearInterval(this.interval);
-        this.gameOverBoard.style.display = "flex";
+        console.log("END GAME!!");
       }
     }
+  }
 }

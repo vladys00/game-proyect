@@ -100,6 +100,7 @@ class Player {
       this.y = this.board.clientWidth - this.height * 2;
     }
   }
+
   collideWith(entity) {
       return (
         this.x < entity.x + entity.width &&
