@@ -111,3 +111,4 @@ class Player {
     }
 }
 //Here we are "drawing", each time this styles will be applied to our player
+ 

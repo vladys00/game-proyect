@@ -3,9 +3,13 @@ class Game {
     this.board = board;
     this.background = new Background(this.board);
     this.player = new Player(this.board);
-    this.enemies = [];
     this.liveCounter = new LiveCounter(this.board, this.player.lives);
 
+    this.questions = [];
+    this.questionTick = 10;
+    this.Qtick = 0;
+
+    this.enemies = [];
     this.enemytick = 30;
     this.tick = 0;
   }
@@ -49,12 +53,12 @@ class Game {
     });
     console.log(enemy);
     if (enemy) {
-        console.log(this.enemies)
-        this.enemies = this.enemies.filter((passedEnemy) => {
-            return passedEnemy !== enemy;
-        });
-        
-    enemy.element.remove();
+      console.log(this.enemies);
+      this.enemies = this.enemies.filter((passedEnemy) => {
+        return passedEnemy !== enemy;
+      });
+
+      enemy.element.remove();
       this.player.lives -= 1;
       this.liveCounter.lives = this.player.lives;
       this.liveCounter.draw();

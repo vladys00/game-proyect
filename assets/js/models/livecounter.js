@@ -34,14 +34,7 @@ class LiveCounter {
 
         document.body.appendChild(this.element.cloneNode());
       });
-      console.log(Array(this.lives))
+      
   }
-  collideWith(entity) {
-    return (
-      this.x < entity.x + entity.width &&
-      this.x + this.width > entity.x &&
-      this.y < entity.y + entity.height &&
-      this.height + this.y > entity.y
-    );
-  }
+ 
 }

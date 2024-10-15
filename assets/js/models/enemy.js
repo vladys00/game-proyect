@@ -21,10 +21,10 @@ class Enemy {
   draw() {
     this.element.style.width = this.width + "px";
     this.element.style.height = this.height + "px";
-    this.element.style.bottom = this.y + "px";
     this.element.style.backgroundColor = "red";
     
-   
+    
+    this.element.style.bottom = this.y + "px";
     this.element.style.left = this.x + "px";
 
     
