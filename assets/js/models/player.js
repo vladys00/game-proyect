@@ -7,7 +7,7 @@ class Player {
     this.lives = 3;
 
     this.sx = 5;
-    this.sy = 5;
+    this.sy = 8;
     this.width = 80;
     this.height = 50;
     this.eventListeners();
@@ -102,13 +102,12 @@ class Player {
   }
 
   collideWith(entity) {
-      return (
-        this.x < entity.x + entity.width &&
-        this.x + this.width > entity.x &&
-        this.y < entity.y + entity.height &&
-        this.height + this.y > entity.y
-      );
-    }
+    return (
+      this.x < entity.x + entity.width &&
+      this.x + this.width > entity.x &&
+      this.y < entity.y + entity.height &&
+      this.height + this.y > entity.y
+    );
+  }
 }
 //Here we are "drawing", each time this styles will be applied to our player
- 
