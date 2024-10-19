@@ -3,15 +3,15 @@ class LiveCounter {
     this.lives = lives;
     this.board = board;
 
-    this.width = 20;
-    this.height = 20;
+    this.width = 35;
+    this.height = 35;
 
     this.body = document.body;
 
-    this.element = document.createElement("div");
+    this.element = document.createElement("img");
+    this.element.setAttribute("src", "../../assets/img/pixel-heart.gif");
     this.element.style.width = this.width + "px";
     this.element.style.height = this.height + "px";
-    this.element.style.backgroundColor = "red";
     this.element.style.position = "absolute";
     this.element.className = "hearts";
 
@@ -29,12 +29,12 @@ class LiveCounter {
     Array(this.lives)
       .fill("x")
       .forEach((_, index) => {
-        this.element.style.left = `${this.offSetHeart + index * (this.width + this.spacingHeart) }px`;
+        this.element.style.left = `${
+          this.offSetHeart + index * (this.width + this.spacingHeart)
+        }px`;
         this.element.style.top = "30px";
 
         document.body.appendChild(this.element.cloneNode());
       });
-      
   }
- 
 }

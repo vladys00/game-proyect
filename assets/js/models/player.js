@@ -6,15 +6,15 @@ class Player {
     this.y = this.yFloor;
     this.lives = 3;
 
-    this.sx = 5;
+    this.sx = 8;
     this.sy = 8;
     this.width = 80;
-    this.height = 50;
+    this.height = 55;
     this.eventListeners();
 
     //Here we write the code like if we were in adding elements in HTML or styles with CSS
     this.element = document.createElement("img");
-    this.element.setAttribute("src", "../../assets/img/character.png");
+    this.element.setAttribute("src", "../../assets/img/dodo-pixel-cropped.gif");
     this.element.className = "player";
     this.element.style.position = "absolute";
     this.hasStarted = false;

@@ -1,3 +1,19 @@
+#counter{
+  position: absolute;
+  text-transform: uppercase;
+  left: 45px;
+  top: 95px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  p{
+    font-size: 20px;
+    margin: 0;
+  }
+  
+}
 .container {
   width: 100vw;
   height: 100vh;
@@ -8,11 +24,15 @@
     position: absolute;
     flex-direction: column;
     height: 100%;
-    width: 600px;
+    width: 800px;
     display: none;
     align-items: center;
     justify-content: center;
     background-color: rgba(164, 148, 94, 0.9);
+    img {
+      width: 600px;
+      height: auto;
+    }
     #form {
       margin-top: 10px;
       background-color: antiquewhite;
@@ -28,7 +48,7 @@
 #game-board {
   position: relative;
   height: 100%;
-  width: 600px;
+  width: 800px;
   background-color: rgba(164, 148, 94, 0.3);
   overflow: hidden;
 }
@@ -36,7 +56,7 @@
 #game-over {
   position: absolute;
   height: 100%;
-  width: 600px;
+  width: 800px;
   background-color: rgba(0, 0, 0, 0.5);
   color: red;
   font-size: 45px;
@@ -45,6 +65,7 @@
   align-items: center;
   h1{
     text-align: center;
+    font-family: Arial, sans-serif;
   }
 }
 

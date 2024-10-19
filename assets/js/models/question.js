@@ -1,43 +1,36 @@
-const possibleQuestions = [
-  {
-    questionImg: "purpleC",
-    correctOption: "C",
-    answered: false,
-  },
-];
-
 class Question {
   constructor(game) {
-    this.question = { questionImg: "", correctOption: "C", answered: false };
-    //elegir una pregunta random del array
     this.setUpFormListener();
-    this.game = game
+    this.game = game;
   }
 
   setUpFormListener() {
     const form = document.getElementById("form");
 
-
-
     form.onsubmit = (event) => {
-      const value = document.getElementById("answer").value; // se almacena el valor del numero que as seleccinado
+      const value = document.getElementById("answer").value;
       event.preventDefault();
 
-      
-
-      this.checkQuestion(value === this.question.correctOption)
-    this.question.answered = true;
+      this.checkQuestion(value === this.game.question.correctOption);
     };
   }
 
   checkQuestion(result) {
     if (result === true) {
       console.log("acertó");
+      if (this.game.player.lives < 4) {
+        this.game.player.lives += 1;
+      }
+      this.game.liveCounter.lives = this.game.player.lives;
+      this.game.liveCounter.draw();
     } else {
       console.log("falló");
+      this.game.player.lives -= 1;
+      this.game.liveCounter.lives = this.game.player.lives;
+      this.game.liveCounter.draw();
     }
 
-    this.game.question.style.display = "none";
+    this.game.questionDiv.style.display = "none";
     this.game.start();
   }
 
