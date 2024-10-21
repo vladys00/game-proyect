@@ -27,6 +27,9 @@ class QuestionBox {
 
     this.questionBox.style.bottom = this.y + "px";
     this.questionBox.style.left = this.x + "px";
+    this.questionBox.style.backgroundColor = "rgba(255, 255, 0, 0.4)";
+    this.questionBox.style.borderRadius = "50%";
+    this.questionBox.style.padding = "7px"
 
     this.board.appendChild(this.questionBox);
   }

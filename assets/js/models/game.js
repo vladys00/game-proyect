@@ -1,35 +1,46 @@
 class Game {
   constructor(board) {
     this.board = board;
+    // this.initData();
+
     this.background = new Background(this.board);
+    this.questionManager = new Question(this);
     this.player = new Player(this.board);
     this.liveCounter = new LiveCounter(this.board, this.player.lives);
 
-    this.counter = document.getElementById("counter-num");
-    this.counterNum = 0;
+    this.playAgain = document.getElementById("play-again");
+    this.points = document.getElementById("counter-num");
+    this.gameOver = document.getElementById("game-over");
+    this.questionDiv = document.getElementById("questionBox");
+    this.imageBox = document.getElementById("img-div");
+    this.finalScore = document.getElementById("finalScore");
 
+    this.possibleQuestions = questionsData;
     this.questions = [];
-    this.questionTick = 450;
+    this.questionTick = 400;
     this.Qtick = 0;
 
-    this.questionManager = new Question(this);
+    this.rocks = [];
+    this.rockTick = 100;
+
+    this.nuts = [];
+    this.nutTick = 125;
+
+    this.scoreNum = 0;
 
     this.enemies = [];
-    this.enemytick = 100;
+    this.enemytick = 500;
     this.tick = 0;
 
     this.ratsEnemies = [];
     this.ratEnemyTick = 90;
 
     this.pigsEnemies = [];
-    this.pigEnemyTick = 150;
+    this.pigEnemyTick = 70;
 
-    this.gameOver = document.getElementById("game-over");
-    this.questionDiv = document.getElementById("questionBox");
-    this.imageBox = document.getElementById("img-div");
-
-    this.possibleQuestions = questionsData;
+    this.interval;
   }
+  initData() {}
 
   start() {
     this.interval = setInterval(() => {
@@ -39,22 +50,19 @@ class Game {
       this.tick++;
       this.Qtick++;
 
-      if (this.tick % 10 === 0){
-        this.counterNum++;
-      }
-      if (this.counterNum % 100 === 0){
+      if (this.counterNum % 100 === 0) {
         this.pigEnemyTick -= 10;
       }
-      if (this.counterNum % 150 === 0){
+      if (this.counterNum % 150 === 0) {
         this.ratEnemyTick -= 5;
       }
-      if (this.counterNum % 200 === 0){
+      if (this.counterNum % 200 === 0) {
         this.enemytick -= 15;
       }
-      
 
       if (this.tick % this.enemytick === 0) {
-        this.enemies.push(new Enemy(this.board)); // Why it is thi.board in the properties
+        this.enemies.push(new Enemy(this.board));
+        // Why it is thi.board in the properties
       }
 
       if (this.tick % this.ratEnemyTick === 0) {
@@ -67,11 +75,46 @@ class Game {
       if (this.Qtick % this.questionTick === 0) {
         this.questions.push(new QuestionBox(this.board));
       }
+
+      if (this.tick % this.rockTick === 0) {
+        this.rocks.push(new RockPoints(this.board));
+      }
+
+      if (this.tick % this.nutTick === 0) {
+        this.nuts.push(new NutPoints(this.board));
+      }
       //this.cleanUp()
 
       this.liveCounter.draw();
     }, 1000 / 60);
   }
+
+  //   cleanUp (){
+  //     this.enemies = this.enemies.filter((enemy)=>{
+  //         if(enemy.y < -enemy.height){
+  //             enemy.remove();
+  //             return false;
+  //         } else {
+  //             return true;
+  //         }
+  //     })
+  //     this.ratsEnemies = this.ratsEnemies.filter((rat)=>{
+  //         if(rat.y < -rat.height){
+  //             rat.remove();
+  //             return false;
+  //         } else {
+  //             return true;
+  //         }
+  //     })
+  //     this.pigsEnemies = this.pigsEnemies.filter((pig)=>{
+  //         if(pig.y < -pig.height){
+  //             pig.remove();
+  //             return false;
+  //         } else {
+  //             return true;
+  //         }
+  //     })
+  //   }
 
   move() {
     this.player.move();
@@ -90,10 +133,16 @@ class Game {
     this.questions.forEach((question) => {
       question.move();
     });
+    this.rocks.forEach((rock) => {
+      rock.move();
+    });
+    this.nuts.forEach((nut) => {
+      nut.move();
+    });
   }
 
   draw() {
-    this.counter.innerHTML = `${this.counterNum}`;
+    this.points.innerHTML = `${this.scoreNum}`;
     this.background.draw();
     this.player.draw();
     this.enemies.forEach((enemy) => {
@@ -108,6 +157,12 @@ class Game {
     this.questions.forEach((question) => {
       question.draw();
     });
+    this.rocks.forEach((rock) => {
+      rock.draw();
+    });
+    this.nuts.forEach((nut) => {
+      nut.draw();
+    });
   }
 
   checkCollision() {
@@ -121,6 +176,10 @@ class Game {
       });
 
       enemy.element.remove();
+      this.scoreNum -= 15;
+      if(this.scoreNum<0){
+        this.scoreNum = 0;
+      }
       this.player.lives -= 1;
       this.liveCounter.lives = this.player.lives;
       this.liveCounter.draw();
@@ -128,6 +187,7 @@ class Game {
       if (this.player.lives === 0) {
         console.log("END GAME!!");
         window.clearInterval(this.interval);
+        this.finalScore.innerHTML = `${this.scoreNum}`;
         this.gameOver.style.display = "flex";
       }
     }
@@ -142,6 +202,10 @@ class Game {
       });
 
       rat.element.remove();
+      this.scoreNum -= 10;
+      if(this.scoreNum<0){
+        this.scoreNum = 0;
+      }
       this.player.lives -= 1;
       this.liveCounter.lives = this.player.lives;
       this.liveCounter.draw();
@@ -149,6 +213,7 @@ class Game {
       if (this.player.lives === 0) {
         console.log("END GAME!!");
         window.clearInterval(this.interval);
+        this.finalScore.innerHTML = `${this.scoreNum}`;
         this.gameOver.style.display = "flex";
       }
     }
@@ -163,6 +228,10 @@ class Game {
       });
 
       pig.element.remove();
+      this.scoreNum -= 10;
+      if(this.scoreNum<0){
+        this.scoreNum = 0;
+      }
       this.player.lives -= 1;
       this.liveCounter.lives = this.player.lives;
       this.liveCounter.draw();
@@ -170,6 +239,7 @@ class Game {
       if (this.player.lives === 0) {
         console.log("END GAME!!");
         window.clearInterval(this.interval);
+        this.finalScore.innerHTML = `${this.scoreNum}`;
         this.gameOver.style.display = "flex";
       }
     }
@@ -189,6 +259,35 @@ class Game {
       this.questions = this.questions.filter((question) => {
         return collidedQuestion !== question;
       });
+      if (this.player.lives === 0) {
+        console.log("END GAME!!");
+        window.clearInterval(this.interval);
+        this.finalScore.innerHTML = `${this.scoreNum}`;
+        this.gameOver.style.display = "flex";
+      }
+    }
+    this.playAgain.addEventListener("click", function () {
+      console.log(this);
+      location.reload();
+    });
+
+    const rock = this.rocks.find((rock) => {
+      return this.player.collideWith(rock);
+    });
+    if (rock) {
+      this.rocks = this.rocks.filter((passedRock) => {
+        return passedRock !== rock;
+      });
+      this.scoreNum += 10;
+    }
+    const nut = this.nuts.find((nut) => {
+      return this.player.collideWith(nut);
+    });
+    if (nut) {
+      this.nuts = this.nuts.filter((passedNut) => {
+        return passedNut !== nut;
+      });
+      this.scoreNum += 15;
     }
   }
 }

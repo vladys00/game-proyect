@@ -10,13 +10,13 @@ class Background {
         
 
         this.element = document.createElement("img");
-        this.element.setAttribute("src", "./assets/img/sandBig.jpg")
+        this.element.setAttribute("src", "./assets/img/sandPix.png")
         this.element.className = "background";
         this.element.style.position = "absolute";
         this.element.style.objectFit = "cover";
 
         this.element2 = document.createElement("img");
-        this.element2.setAttribute("src", "./assets/img/sandBig2.jpg")
+        this.element2.setAttribute("src", "./assets/img/sandPix2.png")
         this.element2.className = "background2";
         this.element2.style.position = "absolute";
         this.element2.style.objectFit = "cover";
