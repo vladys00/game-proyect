@@ -73,22 +73,31 @@ body{
   position: absolute;
   height: 100%;
   width: 800px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.70);
   color: rgb(216, 119, 34);
   font-size: 45px;
   display: none;
   justify-content: center;
   align-items: center;
+  p{
+    font-family: monospace;
+  }
   h1{
     text-align: center;
-    font-family: Arial, sans-serif;
+    font-family: monospace;
+    margin-top: 20px;
   }
   #play-again {
+    width: 280px;
+    height: 80px;
     font-size: 35px;
-    background-color: #3fdde2;
-    border-style: none;
+    background-color: #47b44b;
+    color: white;
+    
+   
     border-radius: 5px;
     padding: 10px;
+    font-family: monospace;
   }
   #play-again:hover{
     cursor: pointer;
@@ -112,14 +121,26 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
 
-  width: 200px;
-  height: 50px;
+  width: 300px;
+  height: 90px;
   background-color: #47b44b;
   color: white;
   border: none;
   border-radius: 3px;
-  font-size: 20px;
+  font-size: 30px;
   cursor: pointer;
 
   font-family: monospace;
+}
+.blink {
+  animation: blink-animation 1s steps(2, start) infinite;
+}
+
+@keyframes blink-animation {
+  from {
+    border: 5px dotted  rgba(252, 255, 0, 0.8);
+  }
+  to {
+    border: transparent;
+  }
 }

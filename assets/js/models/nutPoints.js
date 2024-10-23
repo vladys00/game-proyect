@@ -11,9 +11,9 @@ class NutPoints extends Enemy {
     }
     draw(){
         super.draw();
-        this.element.style.backgroundColor = "rgba(255, 165, 0, 0.3)";
+        this.element.style.backgroundColor = "rgba(255, 157, 0, 0.3)";
         this.element.style.borderRadius = "50%";
-        this.element.style.padding = "5px"
+        this.element.style.padding = "6px"
     }
     move(){
         super.move();

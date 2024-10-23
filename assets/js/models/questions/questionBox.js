@@ -10,12 +10,12 @@ class QuestionBox {
     );
 
     this.y = this.board.clientHeight;
-    this.sy = 7;
+    this.sy = 3;
     this.sx = 5;
 
     this.questionBox = document.createElement("img");
     
-    this.questionBox.className = "question-box";
+    this.questionBox.className = "question-box blink";
     this.questionBox.style.position = "absolute";
     this.questionBox.setAttribute("src", "../../assets/img/questionBox.gif");
   }
@@ -29,6 +29,7 @@ class QuestionBox {
     this.questionBox.style.left = this.x + "px";
     this.questionBox.style.backgroundColor = "rgba(255, 255, 0, 0.4)";
     this.questionBox.style.borderRadius = "50%";
+    // this.questionBox.style.border = "5px dotted  rgba(252, 255, 0, 0.94)";
     this.questionBox.style.padding = "7px"
 
     this.board.appendChild(this.questionBox);

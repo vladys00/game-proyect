@@ -7,42 +7,42 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-      <div class="container">
-        <div id="counter">
-            <h2>Points:</h2>
-            <p id="counter-num">0</p>
-        </div>
+    <div class="container">
+      <div id="counter">
+        <h2>Points:</h2>
+        <p id="counter-num">0</p>
+      </div>
       <div id="game-board"></div>
       <div id="game-over">
         <p>You scored: <span id="finalScore">0</span> points</p>
         <h1>GAME OVER!!</h1>
-        <button id="play-again">PLAY AGAIN</button>
+        <button id="play-again">Play Again</button>
       </div>
-      
-       
-        <div id="questionBox">
-            <img id="img-div" alt="question image"> 
-            <!-- in the src we put a varibale  -->
-            <form id="form">
-                <p>Choose the correct answer:</p>
-              <label>
-                <select name="answer" id="answer">
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-              </label>
-              <button type="submit">Submit</button>
-            </form>
-        </div>
-      
+
+      <div id="questionBox">
+        <img id="img-div" alt="question image" />
+        <!-- in the src we put a varibale  -->
+        <form id="form">
+          <p>Choose the correct answer:</p>
+          <label>
+            <select name="answer" id="answer">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+          </label>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
     </div>
-   <div>
-
-   </div>
-    <button  id="start-btn">Start Game!</button>
-
+    <div id="correct-answer">
+        <p>Correct answer!!</p>
+    </div>
+    <div id="incorrect-answer">
+        <p>Incorrect answer :( </p>
+    </div>
+    <button id="start-btn">Start Game!</button>
 
     <script src="assets/js/models/questions/dataQuestions.js"></script>
     <script src="assets/js/constant.js"></script>
@@ -51,6 +51,8 @@
     <script src="assets/js/models/enemies/enemy.js"></script>
     <script src="assets/js/models/enemies/enemyRat.js"></script>
     <script src="assets/js/models/enemies/enemyPig.js"></script>
+    <script src="assets/js/models/slowSnail.js"></script>
+    <script src="assets/js/models/powerCrab.js"></script>
     <script src="assets/js/models/rockPoints.js"></script>
     <script src="assets/js/models/nutPoints.js"></script>
     <script src="assets/js/models/questions/livecounter.js"></script>
