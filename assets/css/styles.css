@@ -54,6 +54,20 @@ body{
       border-radius: 10px;
       display: flex;
       align-items: center;
+      font-family: monospace;
+      label {
+        font-family: monospace;
+        cursor: pointer;
+      }
+      button {
+        font-family: monospace;
+        margin-left: 10px;
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 5px;
+        cursor: pointer;
+      }
+      
     }
 
   }
@@ -132,6 +146,45 @@ body{
 
   font-family: monospace;
 }
+#correct-answer{
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;
+  background-color: rgba(255, 252, 252, 0.5);
+  color: green;
+  font-size: 20px;
+  display: none;
+  p{
+    font-family: monospace;
+    margin: 0;
+  }
+  
+}
+
+#incorrect-answer{
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: red;
+  font-size: 22px;
+  display: none;
+  p{
+    font-family: monospace;
+    margin: 0;
+  }
+  
+}
+
+
 .blink {
   animation: blink-animation 1s steps(2, start) infinite;
 }

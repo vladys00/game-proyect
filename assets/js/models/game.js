@@ -14,17 +14,21 @@ class Game {
     this.questionDiv = document.getElementById("questionBox");
     this.imageBox = document.getElementById("img-div");
     this.finalScore = document.getElementById("finalScore");
+    this.correctAnswerPop = document.getElementById("correct-answer");
+    this.incorrectAnswerPop = document.getElementById("incorrect-answer");
 
     this.possibleQuestions = questionsData;
     this.questions = [];
     this.questionTick = 400;
     this.Qtick = 0;
 
+    this.speedDecay = 0;
+
+    this.slowSnail = false;
+
     this.interval;
 
     this.scoreNum = 0;
-
-    this.crabPower = false;
 
     this.crabs = [];
     this.crabTick = 250;
@@ -58,25 +62,25 @@ class Game {
       this.tick++;
       this.Qtick++;
 
-      if (this.counterNum % 100 === 0) {
+      if (this.tick % 1000 === 0) {
         this.pigEnemyTick -= 10;
       }
-      if (this.counterNum % 150 === 0) {
+      if (this.tick % 2150 === 0) {
         this.ratEnemyTick -= 5;
       }
-      if (this.counterNum % 200 === 0) {
+      if (this.tick % 3200 === 0) {
         this.enemytick -= 15;
       }
 
       if (this.tick % this.enemytick === 0) {
-        this.enemies.push(new Enemy(this.board));
+        this.enemies.push(new Enemy(this.board, this.speedDecay));
       }
 
       if (this.tick % this.ratEnemyTick === 0) {
-        this.ratsEnemies.push(new RatEnemy(this.board));
+        this.ratsEnemies.push(new RatEnemy(this.board, this.speedDecay));
       }
       if (this.tick % this.pigEnemyTick === 0) {
-        this.pigsEnemies.push(new PigEnemy(this.board));
+        this.pigsEnemies.push(new PigEnemy(this.board, this.speedDecay));
       }
 
       if (this.Qtick % this.questionTick === 0) {
@@ -98,38 +102,38 @@ class Game {
       if (this.tick % this.snailsTick === 0) {
         this.snails.push(new SlowSnail(this.board));
       }
-      this.cleanUp()
+      this.cleanUp();
 
       this.liveCounter.draw();
     }, 1000 / 60);
   }
 
-    cleanUp (){
-      this.enemies = this.enemies.filter((enemy)=>{
-          if(enemy.y < -enemy.height){
-              enemy.element.remove();
-              return false;
-          } else {
-              return true;
-          }
-      })
-      this.ratsEnemies = this.ratsEnemies.filter((rat)=>{
-          if(rat.y < -rat.height){
-              rat.element.remove();
-              return false;
-          } else {
-              return true;
-          }
-      })
-      this.pigsEnemies = this.pigsEnemies.filter((pig)=>{
-          if(pig.y < -pig.height){
-              pig.element.remove();
-              return false;
-          } else {
-              return true;
-          }
-      })
-    }
+  cleanUp() {
+    this.enemies = this.enemies.filter((enemy) => {
+      if (enemy.y < -enemy.height) {
+        enemy.element.remove();
+        return false;
+      } else {
+        return true;
+      }
+    });
+    this.ratsEnemies = this.ratsEnemies.filter((rat) => {
+      if (rat.y < -rat.height) {
+        rat.element.remove();
+        return false;
+      } else {
+        return true;
+      }
+    });
+    this.pigsEnemies = this.pigsEnemies.filter((pig) => {
+      if (pig.y < -pig.height) {
+        pig.element.remove();
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
 
   move() {
     this.player.move();
@@ -206,7 +210,7 @@ class Game {
       if (!this.crabPower) {
         enemy.element.remove();
         if (this.scoreNum < 0) {
-            this.scoreNum = 0;
+          this.scoreNum = 0;
         }
         this.player.lives -= 1;
         this.liveCounter.lives = this.player.lives;
@@ -214,7 +218,6 @@ class Game {
       }
 
       if (this.player.lives === 0) {
-        console.log("END GAME!!");
         window.clearInterval(this.interval);
         this.draw();
         this.finalScore.innerHTML = `${this.scoreNum}`;
@@ -234,7 +237,7 @@ class Game {
         rat.element.remove();
         this.scoreNum -= 10;
         if (this.scoreNum < 0) {
-            this.scoreNum = 0;
+          this.scoreNum = 0;
         }
         this.player.lives -= 1;
         this.liveCounter.lives = this.player.lives;
@@ -242,7 +245,6 @@ class Game {
       }
 
       if (this.player.lives === 0) {
-        console.log("END GAME!!");
         window.clearInterval(this.interval);
         this.draw();
         this.finalScore.innerHTML = `${this.scoreNum}`;
@@ -263,16 +265,15 @@ class Game {
         pig.element.remove();
         this.scoreNum -= 10;
         if (this.scoreNum < 0) {
-            this.scoreNum = 0;
+          this.scoreNum = 0;
         }
-        
+
         this.player.lives -= 1;
         this.liveCounter.lives = this.player.lives;
         this.liveCounter.draw();
       }
 
       if (this.player.lives === 0) {
-        console.log("END GAME!!");
         window.clearInterval(this.interval);
         this.draw();
         this.finalScore.innerHTML = `${this.scoreNum}`;
@@ -296,84 +297,77 @@ class Game {
         return collidedQuestion !== question;
       });
       if (this.player.lives === 0) {
-        console.log("END GAME!!");
         this.finalScore.innerHTML = `${this.scoreNum}`;
         window.clearInterval(this.interval);
         this.gameOver.style.display = "flex";
       }
     }
-    
+
     const rock = this.rocks.find((rock) => {
-        return this.player.collideWith(rock);
+      return this.player.collideWith(rock);
     });
     if (rock) {
-        rock.element.remove();
-        this.rocks = this.rocks.filter((passedRock) => {
-            return passedRock !== rock;
-        });
-        this.scoreNum += 10;
+      rock.element.remove();
+      this.rocks = this.rocks.filter((passedRock) => {
+        return passedRock !== rock;
+      });
+      this.scoreNum += 10;
     }
     const nut = this.nuts.find((nut) => {
-        return this.player.collideWith(nut);
+      return this.player.collideWith(nut);
     });
     if (nut) {
-        nut.element.remove();
-        this.nuts = this.nuts.filter((passedNut) => {
-            return passedNut !== nut;
-        });
-        this.scoreNum += 15;
+      nut.element.remove();
+      this.nuts = this.nuts.filter((passedNut) => {
+        return passedNut !== nut;
+      });
+      this.scoreNum += 15;
     }
-    
+
     const crab = this.crabs.find((crab) => {
-        return this.player.collideWith(crab);
+      return this.player.collideWith(crab);
     });
     if (crab) {
-        crab.element.remove();
-        this.crabPower = true;
-        this.crabs = this.crabs.filter((passedNut) => {
-            return passedNut !== crab;
-        });
-        this.player.element.style.backgroundColor = "rgba(255, 165, 0, 0.3)";
-        this.player.element.style.borderRadius = "50%";
-        this.player.element.style.padding = "6px";
-        this.player.sx += 5;
-        this.player.sy += 5;
-        setTimeout(() => {
-            this.crabPower = false;
-            this.player.sx -= 5;
-            this.player.sy -= 5;
-            this.player.element.style.removeProperty("background-color");
-            this.player.element.style.removeProperty("borderRadius");
-            this.player.element.style.removeProperty("padding");
-        }, 5000);
+      crab.element.remove();
+      this.crabPower = true;
+      this.crabs = this.crabs.filter((passedNut) => {
+        return passedNut !== crab;
+      });
+      this.player.element.style.backgroundColor = "rgba(255, 165, 0, 0.3)";
+      this.player.element.style.borderRadius = "50%";
+      this.player.element.style.padding = "6px";
+      this.player.sx += 5;
+      this.player.sy += 5;
+      setTimeout(() => {
+        this.crabPower = false;
+        this.player.sx -= 5;
+        this.player.sy -= 5;
+        this.player.element.style.removeProperty("background-color");
+        this.player.element.style.removeProperty("borderRadius");
+        this.player.element.style.removeProperty("padding");
+      }, 5000);
     }
     const snail = this.snails.find((snail) => {
-        return this.player.collideWith(snail);
+      return this.player.collideWith(snail);
     });
     if (snail) {
-        snail.element.remove();
-        this.snails = this.snails.filter((passedSnail) => {
-            return passedSnail !== snail;
-        });
-        console.log(this)
-        this.enemies.forEach((enemy)=>{
-            enemy.sy -= 6;
-        })
-        this.rats.forEach((enemy)=>{
-            enemy.sy -= 6;
-        })
-        this.pigs.forEach((enemy)=>{
-            enemy.sy -= 6;
-        })
-       
-        setTimeout(() => {
-            this.PigEnemy.sy += 6;
-            this.Enemy.sy += 6;
-            this.RatEnemy.sy += 6;
-        }, 5000);
+      snail.element.remove();
+      this.snails = this.snails.filter((passedSnail) => {
+        return passedSnail !== snail;
+      });
+      this.player.element.style.backgroundColor = "rgba(255, 165, 0, 0.3)";
+      this.player.element.style.borderRadius = "50%";
+      this.player.element.style.padding = "6px";
+      this.speedDecay = 4;
+
+      setTimeout(() => {
+        this.speedDecay = 0;
+        this.player.element.style.removeProperty("background-color");
+        this.player.element.style.removeProperty("borderRadius");
+        this.player.element.style.removeProperty("padding");
+      }, 10000);
     }
     this.playAgain.addEventListener("click", function () {
-      
       location.reload();
     });
   }

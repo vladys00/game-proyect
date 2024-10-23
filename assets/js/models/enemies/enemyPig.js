@@ -1,7 +1,9 @@
 class PigEnemy extends Enemy {
-  constructor(board) {
-    super(board);
-    this.sy = 10;
+  constructor(board,decay) {
+    super(board,decay);
+    
+    
+   
     this.width = 75;
     this.height = 40;
     this.element.setAttribute("src", "../../assets/img/pig.gif");

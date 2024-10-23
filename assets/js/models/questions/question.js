@@ -19,6 +19,10 @@ class Question {
     if (result === true) {
       this.game.scoreNum += 25;
       console.log("acertó");
+      this.game.correctAnswerPop.style.display = "flex";
+      setTimeout(() => {
+        this.game.correctAnswerPop.style.display = "none";
+      }, 1000);
       if (this.game.player.lives < 4) {
         this.game.player.lives += 1;
       }
@@ -30,9 +34,14 @@ class Question {
         this.game.scoreNum = 0;
       }
       console.log("falló");
+      this.game.incorrectAnswerPop.style.display = "flex";
+      setTimeout(() => {
+        this.game.incorrectAnswerPop.style.display = "none";
+      }, 1000);
       this.game.player.lives -= 1;
       this.game.liveCounter.lives = this.game.player.lives;
       if (this.game.player.lives === 0) {
+        this.game.draw();
         console.log("END GAME!!");
         console.log(this.game.interval);
         clearInterval(this.game.interval);
@@ -46,7 +55,10 @@ class Question {
     if (this.game.player.lives > 0) {
       this.game.start();
     }
+    if (result === true) {
+      this.game.correctAnswerPop.style.display = "flex";
+    } else {
+      this.game.incorrectAnswerPop.style.display = "flex";
+    }
   }
-
-  selectAnotherQuestion() {}
 }
