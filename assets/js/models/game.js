@@ -19,7 +19,7 @@ class Game {
 
     this.possibleQuestions = questionsData;
     this.questions = [];
-    this.questionTick = 400;
+    this.questionTick = 600;
     this.Qtick = 0;
 
     this.speedDecay = 0;
@@ -31,10 +31,10 @@ class Game {
     this.scoreNum = 0;
 
     this.crabs = [];
-    this.crabTick = 250;
+    this.crabTick = 850;
 
     this.snails = [];
-    this.snailsTick = 100;
+    this.snailsTick = 650;
 
     this.rocks = [];
     this.rockTick = 100;
@@ -286,7 +286,7 @@ class Game {
     });
 
     if (collidedQuestion) {
-      this.randomNumber = Math.floor(Math.random() * 3);
+      this.randomNumber = Math.floor(Math.random() * 15) + 1;
       this.question = this.possibleQuestions[this.randomNumber];
       window.clearInterval(this.interval);
 

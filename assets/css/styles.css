@@ -55,15 +55,19 @@ body{
       display: flex;
       align-items: center;
       font-family: monospace;
+      font-size: 18px;
       label {
+        margin-left: 10px;
         font-family: monospace;
         cursor: pointer;
+        font-size: 18px;
       }
       button {
+        font-size: 18px;
         font-family: monospace;
         margin-left: 10px;
         border: 1px solid black;
-        border-radius: 3px;
+        border-radius: 4px;
         padding: 5px;
         cursor: pointer;
       }
@@ -185,15 +189,3 @@ body{
 }
 
 
-.blink {
-  animation: blink-animation 1s steps(2, start) infinite;
-}
-
-@keyframes blink-animation {
-  from {
-    border: 5px dotted  rgba(252, 255, 0, 0.8);
-  }
-  to {
-    border: transparent;
-  }
-}

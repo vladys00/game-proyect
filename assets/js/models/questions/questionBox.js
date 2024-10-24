@@ -15,7 +15,7 @@ class QuestionBox {
 
     this.questionBox = document.createElement("img");
     
-    this.questionBox.className = "question-box blink";
+    this.questionBox.className = "question-box";
     this.questionBox.style.position = "absolute";
     this.questionBox.setAttribute("src", "../../assets/img/questionBox.gif");
   }
